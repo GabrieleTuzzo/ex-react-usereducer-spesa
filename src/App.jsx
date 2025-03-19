@@ -11,17 +11,12 @@ function App() {
     ];
 
     const [addedProducts, setAddedProducts] = useState([]);
-    const [priceToPay, setPriceToPay] = useState(0);
 
-    useEffect(() => {
-        setPriceToPay(
-            addedProducts.reduce(
-                (acc, currentItem) =>
-                    (acc = acc + currentItem.price * currentItem.quantity),
-                0
-            )
-        );
-    }, [addedProducts]);
+    const totalPrice = addedProducts.reduce(
+        (acc, currentItem) =>
+            (acc = acc + currentItem.price * currentItem.quantity),
+        0
+    );
 
     // console.log(addedProducts);
 
@@ -34,13 +29,9 @@ function App() {
     };
 
     const handleRemoveProduct = (item) => {
-        const newProducts = [...addedProducts];
-        const index = addedProducts.findIndex(
-            (product) => product.name === item.name
+        setAddedProducts(
+            addedProducts.filter((element) => item.name !== element.name)
         );
-        newProducts.splice(index, 1);
-
-        setAddedProducts(newProducts);
     };
 
     const updateProductQuantity = (item) => {
@@ -79,7 +70,7 @@ function App() {
                                 isInCart={true}
                             />
                         ))}
-                        <div>Total: {priceToPay.toFixed(2)}€</div>
+                        <div>Total: {totalPrice.toFixed(2)}€</div>
                     </>
                 ) : (
                     <p>The cart is empty</p>

@@ -9,7 +9,7 @@ export default function Product({
     return (
         <div>
             <h3>{name}</h3>
-            <p>Price: {price}€</p>
+            <p>Price: {price.toFixed(2)}€</p>
             {quantity && <p>Quantity: {quantity}</p>}
             {!isInCart && (
                 <div>
